@@ -8,10 +8,17 @@ enum class StrikeZoneCell
 
 class StrikeZoneArray
 {
-
-	virtual void PrintStrikeZone() = 0;
-
 public:
+	/*inline void ArrayReset()
+	{
+		for (int i = 0; i < ZoneSize; i++)
+		{
+			for (int j = 0; j < ZoneSize; j++)
+			{
+				Strike[i][j] = StrikeZoneCell::Empty;
+			}
+		}
+	}*/
 
 	StrikeZoneArray()
 	{
@@ -19,43 +26,52 @@ public:
 		{
 			for (int j = 0; j < ZoneSize; j++)
 			{
-				if ((i > 0 && i < ZoneSize)
-				 && (j > 0 && j < ZoneSize))
-				{
-					Strike[i][j] = StrikeZoneCell::Strike;
-				}
-				else
-				{
-					Strike[i][j] = StrikeZoneCell::Empty;
-				}
+				Strike[i][j] = StrikeZoneCell::Empty;			
 			}
 		}
 	}
-	virtual ~StrikeZoneArray() = default;
 
-	inline bool IsStrike(int InX, int InY) const
+public:
+
+	inline bool IsStrike(int* InX, int* InY) const
 	{
-		if (IsInStrikeZone(InX, InY))
+		if (IsInPitchZone(InX, InY))
 		{
-			return Strike[InX][InY] == StrikeZoneCell::Strike;
-		}
+			if (IsInStrikeZone(InX, InY))
+			{
+				return Strike[*InY][*InX] == StrikeZoneCell::Strike;
+			}
+		}		
 		return false;
 	}
 
-	inline static bool IsInStrikeZone(int InX, int InY)
+	inline bool IsBallInZone(int* InX, int* InY) const
 	{
-		return InX > 0 && InX < ZoneSize && InY > 0 && InY < ZoneSize;
+		if (IsInPitchZone(InX, InY))
+		{
+			if (Strike[*InY][*InX] != StrikeZoneCell::Empty)
+			{
+				return true;
+			} 
+		}		
+		return false;
 	}
 
-	inline static bool IsInPitchZone(int InX, int InY)
+	inline static bool IsInStrikeZone(int* InX, int* InY)
 	{
-		return InX >= 0 && InX <= ZoneSize && InY >= 0 && InY <= ZoneSize;
+		return (*InX > 0 && *InX < (ZoneSize - 1)) 
+			&& (*InY > 0 && *InY < (ZoneSize - 1));
 	}
 
-public:
-	static constexpr int ZoneSize = 5;
+	inline static bool IsInPitchZone(int *InX, int *InY)
+	{
+		return (*InX >= 0 && *InX < ZoneSize) 
+			&& (*InY >= 0 && *InY < ZoneSize);
+	}
+
 
 protected:
+	static constexpr int ZoneSize = 5;
 	StrikeZoneCell Strike[ZoneSize][ZoneSize];
 };
 

@@ -1,11 +1,11 @@
 #pragma once
-class Player
+#include "StrikeZoneArray.h"
+
+class Player : public StrikeZoneArray
 {
 public:
 
 	void PlayerArray();
-
-	void PrintPlayerArray();
 	
 	void Hit();
 
@@ -21,5 +21,6 @@ public:
 
 	float Power = 0.05f;
 	float HitAvr = 0.05f;
+	unsigned int UltGauge = 0;
 };
 

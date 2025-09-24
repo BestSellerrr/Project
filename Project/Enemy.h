@@ -1,15 +1,17 @@
 #pragma once
-class Enemy
+#include "StrikeZoneArray.h"
+
+class Enemy : public StrikeZoneArray
 {
 public:
 
 	void EnemyArray();
 
-	void PrintEnemyArray();
-
-	void Throw();
+	void Throw(int InStartingBallCount);
 
 public:
+	int Stage = 0;
+	int StartBallCount = 0;
 
 };
 
