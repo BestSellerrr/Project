@@ -34,13 +34,21 @@ void Enemy::EnemyArray()
 	printf("└────┴────┴────┴────┴────┘\n");
 }
 
+void Enemy::EnemyStatInfo()
+{
+	printf("이름: %s\n", GetEnemyName().c_str());
+	printf("체력: %.0f\n", GetEnemyHealth() * 100);
+	printf("공격력: %.0f\n", GetEnemyPower() * 100);
+	printf("스킬게이지: %.0f\n", GetEnemySkillGauge() * 100);
+}
+
 void Enemy::Throw(int InStartingBallCount)
 {
 	while (InStartingBallCount != 0)
 	{
 		int RandX = rand() % ZoneSize;
 		int RandY = rand() % ZoneSize;
-		if (IsBallInZone(&RandX, &RandY))
+		if (!IsBallInZone(&RandX, &RandY))
 		{
 			if ((RandX > 0 && RandX < ZoneSize - 1)
 			 && (RandY > 0 && RandY < ZoneSize - 1))

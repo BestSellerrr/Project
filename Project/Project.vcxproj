@@ -124,15 +124,26 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Base.cpp" />
+    <ClCompile Include="Champion.cpp" />
+    <ClCompile Include="CloneMaster.cpp" />
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="GameManager.cpp" />
+    <ClCompile Include="Gangsoku.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="Project.cpp" />
+    <ClCompile Include="RookiePitcher.cpp" />
     <ClCompile Include="StrikeZoneArray.cpp" />
+    <ClCompile Include="소스.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Base.h" />
+    <ClInclude Include="Champion.h" />
+    <ClInclude Include="CloneMaster.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="GameManager.h" />
+    <ClInclude Include="Gangsoku.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="RookiePitcher.h" />
     <ClInclude Include="StrikeZoneArray.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

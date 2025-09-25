@@ -13,7 +13,7 @@
       <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
-    <Filter Include="몬스터 파일">
+    <Filter Include="적 파일">
       <UniqueIdentifier>{d75eb5a2-f724-4b39-bea1-1c26793f7fb6}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
@@ -24,14 +24,32 @@
     <ClCompile Include="Player.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="Enemy.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
     <ClCompile Include="StrikeZoneArray.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="Base.cpp">
       <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="소스.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GameManager.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Champion.cpp">
+      <Filter>적 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Enemy.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="RookiePitcher.cpp">
+      <Filter>적 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="CloneMaster.cpp">
+      <Filter>적 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Gangsoku.cpp">
+      <Filter>적 파일</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -46,6 +64,21 @@
     </ClInclude>
     <ClInclude Include="Base.h">
       <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GameManager.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Champion.h">
+      <Filter>적 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="RookiePitcher.h">
+      <Filter>적 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="CloneMaster.h">
+      <Filter>적 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Gangsoku.h">
+      <Filter>적 파일</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
