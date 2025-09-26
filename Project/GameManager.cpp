@@ -37,6 +37,12 @@ void GameManager::InputMenu()
 {
 	int Input = 0;
 	std::cin >> Input;
+	if (std::cin.fail())
+	{
+		std::cin.clear();
+		std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+		return;
+	}
 	Enemy* NewEnemy = RandomEnemy();
 	Enemy* LastEnemy = AppearChampion();
 	UpdateStatsFromStage(NewEnemy, &enemy.Stage);
@@ -67,6 +73,7 @@ void GameManager::InputMenu()
 	}
 }
 
+
 void GameManager::Game(Enemy& InEnemy)
 {
 	int InputX = 0;
@@ -90,9 +97,14 @@ void GameManager::Game(Enemy& InEnemy)
 
 		printf("칠 공간 입력(0 ~ 4): ");
 		std::cin >> InputX >> InputY;
-		if (!(strikezonearray.IsInPitchZone(InputX, InputY)))
+
+		//범위를 벗어나거나 숫자가 아닌 문자열 입력 시 while문 처음으로 이동
+		if ((std::cin.fail()) || (!(strikezonearray.IsInPitchZone(InputX, InputY))))
 		{
-			printf("\n다시 입력하세요\n");
+			Jump(26);
+			printf("잘못 입력 하셧습니다\n");
+			std::cin.clear();
+			std::cin.ignore(std::numeric_limits<std::streamsize>::max(),'\n');
 			InEnemy.ArrayReset();
 			continue;
 		}
@@ -150,6 +162,8 @@ void GameManager::Shop()
 		printf("현재 보유 골드 : %d\n", player.Gold);
 		std::cin >> Input;
 
+		
+
 		switch (Input)
 		{
 		case 1:
@@ -185,6 +199,16 @@ void GameManager::Shop()
 		case 9:
 			break;
 		default:
+			if (std::cin.fail())
+			{
+				std::cin.clear();
+				std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+				continue;
+			}
+			else
+			{
+				continue;
+			}
 			break;
 		}
 	}
