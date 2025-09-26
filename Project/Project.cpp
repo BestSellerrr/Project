@@ -1,15 +1,17 @@
 ﻿#include <iostream>
 #include <random>
+#include <windows.h>
 
+#include "Console.h"
 #include "GameManager.h"
-#include "Player.h"
-#include "Enemy.h"
-
-#include "Champion.h"
+#include "Design.h"
 
 int main()
 {
     srand(time(0));
+
+    Console console;
+    console.ConsoleSize();
 
     GameManager gamemanager;
     gamemanager.Play();

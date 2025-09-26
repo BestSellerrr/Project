@@ -1,4 +1,5 @@
 #include "Enemy.h"
+#include "Design.h"
 
 #include <iostream>
 #include <random>
@@ -6,6 +7,7 @@
 void Enemy::EnemyArray()
 {
 	// 던진 공의 위치 출력
+	printf("[Enemy]\n");
 	printf("┌────┬────┬────┬────┬────┐\n");
 	for (int y = 0; y < StrikeZoneArray::ZoneSize; y++)
 	{
@@ -66,4 +68,44 @@ void Enemy::Throw(int InStartingBallCount)
 		}
 		InStartingBallCount--;
 	}
+}
+
+void Enemy::Skill()
+{
+	return;
+}
+
+void Enemy::SkillOff()
+{
+	return;
+}
+
+bool Enemy::IsEnemyMaxSkillGauge(Enemy* InEnemy)
+{
+	if (InEnemy->SkillGauge >= InEnemy->MaxSkillGauge)
+	{
+		return true;
+	}
+	return false;
+}
+
+void Enemy::EnemyPrintSkill(Enemy* InEnemy)
+{
+
+	if (IsEnemyMaxSkillGauge(InEnemy))
+	{
+		InEnemy->Skill();
+		SetEnemySkillGauge(InEnemy->SkillGauge = 0.0f);
+		SkillOnOff = true;
+	}
+	else if (!IsEnemyMaxSkillGauge(InEnemy) && (SkillOnOff == true))
+	{
+		InEnemy->SkillOff();
+		SkillOnOff = false;
+	}
+	else
+	{
+		return;
+	}
+	return;
 }

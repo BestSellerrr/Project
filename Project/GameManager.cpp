@@ -2,7 +2,7 @@
 #include "Enemy.h"
 #include "Player.h"
 #include "StrikeZoneArray.h"
-#include "Base.h"
+#include "Design.h"
 
 #include"RookiePitcher.h"
 #include "CloneMaster.h"
@@ -13,11 +13,11 @@
 
 void GameManager::Play()
 {
+	//게임의 목표인 10 스테이지 보스 잡거나 플레이어의 목숨이 다하면 게임 종료
 	while (true)
 	{
 		PrintMenu();
-		InputMenu();		
-
+		InputMenu();	
 		if (IsPlayerDie(player))
 			break;
 	}
@@ -28,7 +28,9 @@ void GameManager::PrintMenu()
 {
 	printf("현재 스테이지 : %d\n",enemy.Stage);
 	printf("남은 목숨 : %d\n",player.Life);
-	printf("[1]전투 시작 / [2]상점\n");
+	printf("[1]전투 시작 / [2]상점 / [3]내 정보\n");
+	Jump(33);
+	printf("입력: ");
 }
 
 void GameManager::InputMenu()
@@ -37,12 +39,14 @@ void GameManager::InputMenu()
 	std::cin >> Input;
 	Enemy* NewEnemy = RandomEnemy();
 	Enemy* LastEnemy = AppearChampion();
-	UpdateStatsFromStage(NewEnemy, &NewEnemy->Stage);
+	UpdateStatsFromStage(NewEnemy, &enemy.Stage);
 
 	switch (Input)
 	{
 	case 1:		
-		if (NewEnemy->Stage != NewEnemy->MaxStage)
+		Jump(26);
+		//10 스테이지 전까지 랜덤한 적 출현
+		if (enemy.Stage != enemy.MaxStage)
 			Game(*NewEnemy);
 		else
 			Game(*LastEnemy);
@@ -53,6 +57,10 @@ void GameManager::InputMenu()
 		break;
 	case 2:
 		Shop();
+		break;
+	case 3:
+		player.PlayerStatInfo();
+		Line();
 		break;
 	default:
 		break;
@@ -68,18 +76,24 @@ void GameManager::Game(Enemy& InEnemy)
 
 	while (true)
 	{		
+		Line();
 		InEnemy.EnemyStatInfo();
-
+		Line();
 		player.PlayerStatInfo();
 
-		InEnemy.Throw(InEnemy.CanThrowBall);
-		printf("상대는 공을 던졌다\n");
+		InEnemy.EnemyPrintSkill(&InEnemy);
+		player.PlayerPrintUlt();
+
+		//매번 다른 공을 던지도록 배열 고정X
+		printf("상대는 공을 던졌다\n\n");		
+		InEnemy.Throw(InEnemy.PitchCount);
 
 		printf("칠 공간 입력(0 ~ 4): ");
 		std::cin >> InputX >> InputY;
 		if (!(strikezonearray.IsInPitchZone(InputX, InputY)))
 		{
-			printf("다시 입력하세요\n");
+			printf("\n다시 입력하세요\n");
+			InEnemy.ArrayReset();
 			continue;
 		}
 
@@ -89,11 +103,15 @@ void GameManager::Game(Enemy& InEnemy)
 
 		if (IsPlayerHit(player, InEnemy))
 		{
+			Line();
 			printf("쳤습니다!!\n");
 			InEnemy.Health -= player.Power;
+			InEnemy.SetEnemySkillGauge(InEnemy.SkillGauge + 0.2f);
+			player.MoveUpBase();
 		}
 		else
 		{
+			Line();
 			printf("못쳤습니다...\n");
 			player.Health -= InEnemy.Power;
 		}
@@ -102,14 +120,21 @@ void GameManager::Game(Enemy& InEnemy)
 
 		if (InEnemy.Health < 0.01f)
 		{
-			printf("이겼습니다!!");
+			Jump(2);
+			printf("이겼습니다!!\n");
 			player.Gold += InEnemy.DropGold;
+
+			//적 처치후 난이도 증가를 위한 스테이지 수 + 1
 			enemy.SetStage(enemy.Stage + 1);
+			Line();			
 			break;
 		}
 		else if (player.Health < 0.01f)
 		{
-			printf("플레이어가 죽었습니다");
+			Jump(1);
+			printf("플레이어가 죽었습니다\n");
+			player.Life--;
+			Line();
 			break;
 		}
 	}
@@ -135,6 +160,7 @@ void GameManager::Shop()
 			}
 			printf("체력 + 100\n");
 			player.Health += 1.0f;
+			player.Gold -= 100;
 			break;
 		case 2:
 			if (player.Gold < PowerPrice)
@@ -144,6 +170,7 @@ void GameManager::Shop()
 			}
 			printf("공격력 + 10\n");
 			player.Power += 0.1f;
+			player.Gold -= 100;
 			break;
 		case 3:
 			if (player.Gold < BatLengthPrice)
@@ -153,6 +180,7 @@ void GameManager::Shop()
 			}
 			printf("배트 길이 + 1\n");
 			player.BatLength += 1;
+			player.Gold -= 1000;
 			break;
 		case 9:
 			break;
@@ -186,16 +214,17 @@ Enemy* GameManager::RandomEnemy()
 
 Enemy* GameManager::AppearChampion()
 {
-	Enemy* LastEnemy = new Champion("챔피언", 8.0f, 2.5f, 100000000);
+	Enemy* LastEnemy = new Champion("챔피언", 10.0f, 2.5f, 100000000);
 	return LastEnemy;
 }
 
 void GameManager::UpdateStatsFromStage(Enemy* InEnemy, int* InStage)
 {
-	InEnemy->Health += *InStage * 0.5f;
-	InEnemy->Power += *InStage * 0.1f;
-	InEnemy->DropGold += *InStage * 100;
-	InEnemy->CanThrowBall -= *InStage;
+	InEnemy->Stage = *InStage;
+	InEnemy->Health += (*InStage * 0.5f);
+	InEnemy->Power += (*InStage * 0.1f);
+	InEnemy->DropGold += (*InStage * 100);
+	InEnemy->PitchCount -= *InStage;
 }
 
 void GameManager::PrintResult()

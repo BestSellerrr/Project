@@ -16,6 +16,9 @@
     <Filter Include="적 파일">
       <UniqueIdentifier>{d75eb5a2-f724-4b39-bea1-1c26793f7fb6}</UniqueIdentifier>
     </Filter>
+    <Filter Include="디자인">
+      <UniqueIdentifier>{876bc4c1-d7b0-49a0-a511-89c0fdbba4a2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Project.cpp">
@@ -25,12 +28,6 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="StrikeZoneArray.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="Base.cpp">
-      <Filter>소스 파일</Filter>
-    </ClCompile>
-    <ClCompile Include="소스.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
     <ClCompile Include="GameManager.cpp">
@@ -51,6 +48,12 @@
     <ClCompile Include="Gangsoku.cpp">
       <Filter>적 파일</Filter>
     </ClCompile>
+    <ClCompile Include="Console.cpp">
+      <Filter>적 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="Design.cpp">
+      <Filter>디자인</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Player.h">
@@ -60,9 +63,6 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="StrikeZoneArray.h">
-      <Filter>헤더 파일</Filter>
-    </ClInclude>
-    <ClInclude Include="Base.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
     <ClInclude Include="GameManager.h">
@@ -79,6 +79,12 @@
     </ClInclude>
     <ClInclude Include="Gangsoku.h">
       <Filter>적 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Console.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="Design.h">
+      <Filter>디자인</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
